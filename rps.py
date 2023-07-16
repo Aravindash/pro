@@ -1,54 +1,89 @@
-import random
+from tkinter import *
+root = Tk()
 
-user_wins = 0
-computer_wins = 0
-draws=0
+lab=Label(root, text="Rock / Paper /Scissors : Enter - [r] [p] [s]")
+lab.grid(row=0,column=1,padx=15,pady=15)
 
-options = ["rock", "paper", "scissors"]
+lab3=Label(root,text="Player 1 :", width=25)
+lab3.grid(row=1,column=0)
 
-while True:
-    user_input = input("Type Rock/Paper/Scissors or Q to quit: ").lower()
-    if user_input == "q":
-        break
+lab4=Label(root, text="Player 2 :", width=25)
+lab4.grid(row=1,column=2)
 
-    if user_input not in options:
-        continue
+lab5=Label(root,text="Wins :",width=25)
+lab5.grid(row=3,column=0)
 
-    random_number = random.randint(0, 2)
-    # rock: 0, paper: 1, scissors: 2
-    computer_pick = options[random_number]
-    print("Computer picked", computer_pick + ".")
+lab6=Label(root,text="Wins :",width=25)
+lab6.grid(row=3,column=2)
 
-    if user_input == "rock" and computer_pick == "scissors":
-        print("You won!")
-        user_wins += 1
+lab7=Label(root,text="Draws :",width=25)
+lab7.grid(row=6,column=0)
 
-    elif user_input == "paper" and computer_pick == "rock":
-        print("You won!")
-        user_wins += 1
+inpu=Entry(root, width=20, fg="white")
+inpu.grid(row=2,column=0)
 
-    elif user_input == "scissors" and computer_pick == "paper":
-        print("You won!")
-        user_wins += 1
+inp=Entry(root, width=20, fg="white")
+inp.grid(row=2,column=2)
 
-    elif user_input == "scissors" and computer_pick == "scissors":
-        print("It's a Draw!")
-        draws += 1
+def r_p_s():
+    p1=inpu.get()
+    p2=inp.get()
+    player1_wins=0
+    player2_wins=0
+    draws=0
+    rps=['r','p','s']
+    if p1==p2:
+        lab2=Label(root, text="Draw")
+        lab2.grid(row=4,column=1)
+        draws+=1
+            
+    elif p1=='r' and p2=='s':
+        lab2=Label(root, text="Player 1 Won")
+        lab2.grid(row=4,column=1)
+        player1_wins+=1           
+    elif p1=='s' and p2=='p':
+        lab2=Label(root, text="Player 1 Won")
+        lab2.grid(row=4,column=1)
+        player1_wins+=1
+    elif p1=='p' and p2=='r':
+        lab2=Label(root, text="Player 1 Won")
+        lab2.grid(row=4,column=1)
+        player1_wins+=1
 
-    elif user_input == "paper" and computer_pick == "paper":
-        print("It's a Draw!")
-        draws += 1
+    elif p1=='s' and p2=='r':
+        lab2=Label(root, text="Player 2 Won")
+        lab2.grid(row=4,column=1)
+        player2_wins+=1
+    elif p1=='p' and p2=='s':
+        lab2=Label(root, text="Player 2 Won")
+        lab2.grid(row=4,column=1)
+        player2_wins+=1
+    elif p1=='r' and p2=='p':
+        lab2=Label(root, text="Player 2 Won")
+        lab2.grid(row=4,column=1)
+        player2_wins+=1
+    wins1=Entry(root)
+    wins1.grid(row=4,column=0)
+    wins1.insert(0,player1_wins)
 
-    elif user_input == "rock" and computer_pick == "rock":
-        print("It's a Draw!")
-        draws += 1
+    wins2=Entry(root)
+    wins2.grid(row=4,column=2)
+    wins2.insert(0,player2_wins)
 
-    else:
-        print("You lost!")
-        computer_wins += 1
+    draw=Entry(root)
+    draw.grid(row=7,column=0)
+    draw.insert(0,draws)
 
-print("You won", user_wins, "times.")
-print("The computer won", computer_wins, "times.")
-print("No.of  Draws",draws,"times.")
-print("Goodbye!")
-    
+    inpu.delete(0,END)
+    inp.delete(0,END)
+
+def quitf():
+    quit()
+            
+but=Button(root, text="Guess",command=r_p_s,width=10,height=2)
+but.grid(row=3,column=1)
+
+but2=Button(root,text="Quit",command=quitf)
+but2.grid(row=7,column=2)
+
+root.mainloop
